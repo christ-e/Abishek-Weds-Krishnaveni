@@ -2,8 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../data/wedding_data.dart';
 
-class HeroSection extends StatelessWidget {
+class HeroSection extends StatefulWidget {
   const HeroSection({super.key});
+
+  @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _bounceController;
+  late Animation<double> _bounceAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _bounceController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    )..repeat(reverse: true);
+    _bounceAnimation = Tween<double>(begin: 0, end: 10).animate(
+      CurvedAnimation(parent: _bounceController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _bounceController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,19 +103,92 @@ class HeroSection extends StatelessWidget {
           const SizedBox(height: 14),
 
           // 3. Couple Names in Calligraphy
-          Text(
-            "${WeddingData.groomName}\n&\n${WeddingData.brideName}",
+          RichText(
             textAlign: TextAlign.center,
-            style: GoogleFonts.greatVibes(
-              fontSize: isMobile ? 48 : 64,
-              height: 1.15,
-              fontWeight: FontWeight.w400,
-              color: WeddingColors.emeraldPrimary,
-              shadows: [
-                Shadow(
-                  color: WeddingColors.goldPrimary.withOpacity(0.35),
-                  blurRadius: 12,
-                  offset: const Offset(0, 3),
+            text: TextSpan(
+              children: [
+                // Groom name — capital 'A' rendered larger so it reads clearly as uppercase
+                TextSpan(
+                  text: WeddingData.groomName.substring(0, 1),
+                  style: GoogleFonts.greatVibes(
+                    fontSize: isMobile ? 64 : 86,
+                    height: 1.0,
+                    fontWeight: FontWeight.w400,
+                    color: WeddingColors.emeraldPrimary,
+                    shadows: [
+                      Shadow(
+                        color: WeddingColors.goldPrimary.withOpacity(0.35),
+                        blurRadius: 12,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                ),
+                TextSpan(
+                  text: WeddingData.groomName.substring(1),
+                  style: GoogleFonts.greatVibes(
+                    fontSize: isMobile ? 48 : 64,
+                    height: 1.15,
+                    fontWeight: FontWeight.w400,
+                    color: WeddingColors.emeraldPrimary,
+                    shadows: [
+                      Shadow(
+                        color: WeddingColors.goldPrimary.withOpacity(0.35),
+                        blurRadius: 12,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                ),
+                // Ampersand separator
+                TextSpan(
+                  text: "\n&\n",
+                  style: GoogleFonts.greatVibes(
+                    fontSize: isMobile ? 48 : 64,
+                    height: 1.15,
+                    fontWeight: FontWeight.w400,
+                    color: WeddingColors.emeraldPrimary,
+                    shadows: [
+                      Shadow(
+                        color: WeddingColors.goldPrimary.withOpacity(0.35),
+                        blurRadius: 12,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                ),
+                // Bride name — capital 'K' also rendered larger for consistency
+                TextSpan(
+                  text: WeddingData.brideName.substring(0, 1),
+                  style: GoogleFonts.greatVibes(
+                    fontSize: isMobile ? 64 : 86,
+                    height: 1.0,
+                    fontWeight: FontWeight.w400,
+                    color: WeddingColors.emeraldPrimary,
+                    shadows: [
+                      Shadow(
+                        color: WeddingColors.goldPrimary.withOpacity(0.35),
+                        blurRadius: 12,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                ),
+                TextSpan(
+                  text: WeddingData.brideName.substring(1),
+                  style: GoogleFonts.greatVibes(
+                    fontSize: isMobile ? 48 : 64,
+                    height: 1.15,
+                    fontWeight: FontWeight.w400,
+                    color: WeddingColors.emeraldPrimary,
+                    shadows: [
+                      Shadow(
+                        color: WeddingColors.goldPrimary.withOpacity(0.35),
+                        blurRadius: 12,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -209,6 +309,52 @@ class HeroSection extends StatelessWidget {
               letterSpacing: 1.5,
             ),
           ),
+
+          const SizedBox(height: 36),
+
+          // 6. Scroll-down indicator
+          AnimatedBuilder(
+            animation: _bounceAnimation,
+            builder: (context, child) {
+              return Transform.translate(
+                offset: Offset(0, _bounceAnimation.value),
+                child: child,
+              );
+            },
+            child: Column(
+              children: [
+                Text(
+                  'scroll to explore',
+                  style: GoogleFonts.montserrat(
+                    fontSize: isMobile ? 10 : 11,
+                    letterSpacing: 2.5,
+                    fontWeight: FontWeight.w500,
+                    color: WeddingColors.goldDark.withOpacity(0.7),
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Container(
+                  width: 36,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: WeddingColors.goldBorder.withOpacity(0.7),
+                      width: 1.5,
+                    ),
+                    color: WeddingColors.goldLight.withOpacity(0.25),
+                  ),
+                  child: const Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 22,
+                    color: WeddingColors.goldDark,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 16),
         ],
       ),
     );
