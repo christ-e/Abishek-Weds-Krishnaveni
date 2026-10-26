@@ -103,92 +103,19 @@ class _HeroSectionState extends State<HeroSection>
           const SizedBox(height: 14),
 
           // 3. Couple Names in Calligraphy
-          RichText(
+          Text(
+            "${WeddingData.groomName}\n&\n${WeddingData.brideName}",
             textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                // Groom name — capital 'A' rendered larger so it reads clearly as uppercase
-                TextSpan(
-                  text: WeddingData.groomName.substring(0, 1),
-                  style: GoogleFonts.greatVibes(
-                    fontSize: isMobile ? 64 : 86,
-                    height: 1.0,
-                    fontWeight: FontWeight.w400,
-                    color: WeddingColors.emeraldPrimary,
-                    shadows: [
-                      Shadow(
-                        color: WeddingColors.goldPrimary.withOpacity(0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                ),
-                TextSpan(
-                  text: WeddingData.groomName.substring(1),
-                  style: GoogleFonts.greatVibes(
-                    fontSize: isMobile ? 48 : 64,
-                    height: 1.15,
-                    fontWeight: FontWeight.w400,
-                    color: WeddingColors.emeraldPrimary,
-                    shadows: [
-                      Shadow(
-                        color: WeddingColors.goldPrimary.withOpacity(0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                ),
-                // Ampersand separator
-                TextSpan(
-                  text: "\n&\n",
-                  style: GoogleFonts.greatVibes(
-                    fontSize: isMobile ? 48 : 64,
-                    height: 1.15,
-                    fontWeight: FontWeight.w400,
-                    color: WeddingColors.emeraldPrimary,
-                    shadows: [
-                      Shadow(
-                        color: WeddingColors.goldPrimary.withOpacity(0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                ),
-                // Bride name — capital 'K' also rendered larger for consistency
-                TextSpan(
-                  text: WeddingData.brideName.substring(0, 1),
-                  style: GoogleFonts.greatVibes(
-                    fontSize: isMobile ? 64 : 86,
-                    height: 1.0,
-                    fontWeight: FontWeight.w400,
-                    color: WeddingColors.emeraldPrimary,
-                    shadows: [
-                      Shadow(
-                        color: WeddingColors.goldPrimary.withOpacity(0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                ),
-                TextSpan(
-                  text: WeddingData.brideName.substring(1),
-                  style: GoogleFonts.greatVibes(
-                    fontSize: isMobile ? 48 : 64,
-                    height: 1.15,
-                    fontWeight: FontWeight.w400,
-                    color: WeddingColors.emeraldPrimary,
-                    shadows: [
-                      Shadow(
-                        color: WeddingColors.goldPrimary.withOpacity(0.35),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
+            style: GoogleFonts.corinthia(
+              fontSize: isMobile ? 56 : 72,
+              height: 1.2,
+              fontWeight: FontWeight.w700,
+              color: WeddingColors.emeraldPrimary,
+              shadows: [
+                Shadow(
+                  color: WeddingColors.goldPrimary.withOpacity(0.35),
+                  blurRadius: 12,
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
